@@ -2,8 +2,8 @@
 #define ENTITY_H
 
 typedef struct {
-  int y;
   int x;
+  int y;
 } Position;
 
 typedef struct {

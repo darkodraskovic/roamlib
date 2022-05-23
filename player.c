@@ -2,31 +2,40 @@
 
 #include <stdlib.h>
 
-Entity* CreatePlayer() {
+Entity* CreatePlayer(int x, int y) {
   Entity* player = calloc(1, sizeof(Entity));
 
-  player->position.x = 0;
-  player->position.y = 0;
-
+  player->position = (Position){x, y};
   player->ch = '@';
+
   return player;
 }
 
-void HandleInput(int input) {
+void HandleInput(Map* map, int input) {
+  Position dest = player->position;
+
   switch (input) {
     case 'w':
-      player->position.y--;
+      dest.y--;
       break;
     case 's':
-      player->position.y++;
+      dest.y++;
       break;
     case 'a':
-      player->position.x--;
+      dest.x--;
       break;
     case 'd':
-      player->position.x++;
+      dest.x++;
       break;
     default:
       break;
+  }
+  MovePlayer(map, dest);
+}
+
+void MovePlayer(Map* map, Position dest) {
+  if (map->tiles[dest.y][dest.x].walkable) {
+    player->position.x = dest.x;
+    player->position.y = dest.y;
   }
 }
